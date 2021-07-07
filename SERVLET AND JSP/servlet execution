@@ -1,0 +1,22 @@
+Enter into the tomcat9 folder
+
+To execute the servlet start the tomcat server
+./startup.sh which is in bin directory
+
+write servlet program into ROOT/webapps/WEB-INF/classes/servlet_pgm
+
+compile it but it will shows error
+
+then set class path of servlet-api.jar file using
+javac -cp "path of servlet-api.jar" filename.java
+
+copy the file name into web.xml
+
+and then run that pgm on web server as
+localhost:8080/filename
+
+./shutdown.sh to shut down the tomcat server
+
+if web browser gives some error then check it properly
+make sure your class is public 
+your import statement ,methods are correct

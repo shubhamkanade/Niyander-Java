@@ -1,0 +1,5 @@
+import mypackage.*;
+class ab
+{
+}
+

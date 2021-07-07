@@ -1,0 +1,170 @@
+import java.io.*;
+import java.awt.*;
+import javax.swing.*;
+import javax.swing.event.*;
+import java.awt.event.*;
+
+public class ListApp extends JFrame implements ActionListener
+{
+JButton moveLeft,moveSelectedLeft,moveRight,moveSelectedRight,addLeft,addRight,removeLeft,removeRight;
+JPanel addPan,movePan;
+DefaultListModel dlmLeft,dlmRight;
+JList listLeft,listRight; 
+
+public ListApp()
+{
+dlmLeft=new DefaultListModel();
+dlmRight=new DefaultListModel();
+
+listLeft=new JList(dlmLeft);
+listRight=new JList(dlmRight);
+
+moveLeft = new JButton("<<");
+moveSelectedLeft = new JButton("<");
+moveRight = new JButton(">>");
+moveSelectedRight = new JButton(">");
+
+addLeft = new JButton("ADD");
+removeLeft = new JButton("REMOVE");
+addRight = new JButton("ADD");
+removeRight = new JButton("REMOVE");
+
+movePan = new JPanel();
+addPan = new JPanel();
+
+movePan.setLayout(new GridLayout(4,1));
+movePan.add(moveLeft);
+movePan.add(moveSelectedLeft);
+movePan.add(moveRight);
+movePan.add(moveSelectedRight);
+
+addPan.setLayout(new GridLayout(1,4));
+addPan.add(addRight);
+addPan.add(removeLeft);
+addPan.add(addLeft);
+addPan.add(removeRight);
+
+Container c=getContentPane();
+
+c.add(new JScrollPane(listLeft),BorderLayout.WEST);
+c.add(new JScrollPane(listRight),BorderLayout.EAST);
+
+listLeft.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+listRight.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+listRight.setFixedCellWidth(80);
+listLeft.setFixedCellWidth(80);
+c.add(movePan,BorderLayout.CENTER);
+c.add(addPan,BorderLayout.SOUTH);
+
+moveLeft.addActionListener(this);
+moveRight.addActionListener(this);
+moveSelectedLeft.addActionListener(this);
+moveSelectedRight.addActionListener(this);
+
+addLeft.addActionListener(this);
+removeLeft.addActionListener(this);
+addRight.addActionListener(this);
+removeRight.addActionListener(this);
+
+setSize(300,50);
+setVisible(true);
+setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+setTitle("LIST APPLICATION" );
+}
+
+public void actionPerformed(ActionEvent ae)
+{
+JButton btn=(JButton)ae.getSource();
+
+if(btn == addLeft)
+	{
+        	String e=JOptionPane.showInputDialog("Enter Element :");
+        	if(dlmLeft.indexOf(e)==-1)
+		{
+                dlmRight.addElement(e);
+		}
+	}
+
+if(btn == addRight)
+{
+        String e=JOptionPane.showInputDialog("Enter Element :");
+        if(dlmRight.indexOf(e)==-1)
+	{
+                dlmLeft.addElement(e);
+	}
+}
+
+if(btn == removeLeft)
+{
+        int n=listLeft.getSelectedIndex();
+        dlmLeft.remove(n);
+        listLeft.setSelectedIndex(n);
+}
+
+if(btn == removeRight)
+{
+        int n=listRight.getSelectedIndex();
+        dlmRight.remove(n);
+        listRight.setSelectedIndex(n);
+}
+
+if(btn == moveLeft)
+{
+        while(dlmRight.getSize()!=0)
+        {
+           String e=dlmRight.get(0).toString();
+           if(dlmLeft.indexOf(e)==-1)
+           {
+                dlmLeft.addElement(e);
+           }
+                dlmRight.remove(0);
+        }
+}
+
+if(btn == moveRight)
+{
+        while(dlmLeft.getSize()!=0)
+        {
+          String e=dlmLeft.get(0).toString();
+          if(dlmRight.indexOf(e)==-1)
+          {
+                dlmRight.addElement(e);
+          }
+                dlmLeft.remove(0);
+        }
+}
+
+if(btn == moveSelectedRight)
+{
+   Object e[]=listLeft.getSelectedValues();
+   for(int i=0;i<e.length;i++)
+   {
+     if(dlmRight.indexOf(e[i])==-1)
+     {
+	dlmRight.addElement(e[i]);
+     }
+     dlmLeft.remove(dlmLeft.indexOf(e[i]));
+   }
+}
+
+if(btn == moveSelectedLeft)
+{
+   Object e[]=listRight.getSelectedValues();
+   for(int i=0;i<e.length;i++)
+   {
+     if(dlmLeft.indexOf(e[i])==-1)
+     {
+	dlmLeft.addElement(e[i]);
+     }
+     dlmRight.remove(dlmRight.indexOf(e[i]));
+   }
+}
+}
+
+public static void main(String args[])
+{
+      new ListApp( );
+}
+}
+
+

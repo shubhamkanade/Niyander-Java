@@ -1,0 +1,125 @@
+import java.io.*;
+import java.awt.event.*;
+import javax.swing.*;
+import java.awt.*;
+
+
+ class info extends JFrame implements ItemListener 
+{
+int i;
+
+JLabel name,cla,hobbies; 
+JTextField na,t1;
+
+JRadioButton b[];
+JPanel p1,p2,f;
+ButtonGroup grp1;
+JCheckBox c[];
+ 
+
+ public info()
+{
+
+
+f.setLayout(new GridLayout(6,1));
+ 
+name=new JLabel("Your name",JLabel.LEFT);
+cla=new JLabel("Your Class",JLabel.LEFT);
+hobbies=new JLabel("Your Hobbies");
+
+
+
+na=new JTextField(15);
+
+b[0]=new JRadioButton("FY");
+b[1]=new JRadioButton("SY");
+b[2]=new JRadioButton("TY");
+
+grp1=new ButtonGroup();
+
+
+p1= new JPanel();
+p2=new  JPanel();
+
+p1.setLayout(new GridLayout(3,1));
+p2.setLayout(new GridLayout(3,1));
+
+for( i=0;i<3;i++)
+{
+
+p1.add(b[i]);
+grp1.add(b[i]);
+b[i].addItemListener(this);
+
+}
+
+
+
+
+
+
+c[0]=new JCheckBox("Music");
+c[1]=new JCheckBox("Dance");
+c[2]=new JCheckBox("Sports");
+
+for(i=0;i<3;i++)
+{
+
+p2.add(c[i]);
+c[i].addItemListener(this);
+}
+
+
+
+
+f.add(name);
+f.add(na);
+f.add(cla);
+f.add(hobbies);
+f.add(p1);
+f.add(p2);
+
+
+
+
+setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+setVisible(true);
+
+
+}
+ 
+public void itemStateChanged(ItemEvent ae)
+
+{
+int i;
+String mess1="Name:",mess2="class:",mess3="Hobbies:";
+
+mess1+=na.getText();
+
+for( i=0;i<3;i++);
+{
+
+if(b[i].isSelected())
+
+{mess2+=b[i].getText()+"";}
+
+if(c[i].isSelected())
+
+{mess3+=b[i].getText()+"";}
+
+
+}
+
+
+t1.setText(mess1);
+
+
+
+}
+
+public static void main(String[] args)
+
+{
+	new info();
+}
+

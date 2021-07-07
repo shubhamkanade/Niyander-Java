@@ -1,0 +1,66 @@
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+
+
+public class Seta1 extends JFrame implements ActionListener {
+	JFrame f;
+	JLabel l1,l2;
+	JTextField t1,t2;
+	JButton b1,b2;
+
+	public Seta1() {
+		setLayout(new GridLayout(3, 3));
+		
+		l1=new JLabel("Login",JLabel.RIGHT);
+		add(l1);
+		t1=new JTextField(20);
+		add(t1);
+		l2=new JLabel("Password",JLabel.RIGHT);
+		add(l2);
+		t2=new JTextField(20);
+		add(t2);
+		b1=new JButton("OK");
+		b1.addActionListener(this);
+		b2=new JButton("Cancel");
+		b2.addActionListener(this);
+		add(b1);
+		add(b2);
+		setSize(200, 200);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setVisible(true);// TODO Auto-generated constructor stub
+	}
+public void actionPerformed(ActionEvent ae)
+{
+	String s1=t1.getText();
+	String s2=t2.getText();
+	if(ae.getSource()==b1)
+	{
+		if(s1.equals(s2))
+		{
+			JOptionPane.showMessageDialog(null,"login and password are same");
+		}
+		else if(!s1.equals(s2))
+		{
+			JOptionPane.showMessageDialog(null,"login and password are not same");
+		}
+	}
+	if(ae.getSource()==b2)
+	{ setVisible(false);
+	
+	}
+}
+	public static void main(String[] args) {
+		new Seta1();
+		
+		// TODO Auto-generated method stub
+
+	}
+
+}

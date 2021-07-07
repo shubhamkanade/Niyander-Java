@@ -1,0 +1,281 @@
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+
+class Ccalc extends JFrame {
+	
+	JPanel textP;
+	JPanel buttons;
+
+	JTextField t;
+	JButton btns[] = new JButton[16];
+	
+	float OpOne = 0;
+	float OpTwo = 0;
+	String Oprator;
+	float opratorFlag = 0;
+	float OprandFlag = 0;
+	float op = 0;
+	float num = 0;
+	float ans = 0;
+
+	public Ccalc() {
+		setTitle("Calculator");
+		t = new JTextField(15);
+		textP = new JPanel();
+		buttons = new JPanel();
+
+		for(int i=0;i<10;i++) {
+		
+			btns[i] = new JButton(""+i);
+
+		}
+
+		btns[10] = new JButton("+");	
+		btns[11] = new JButton("-");		
+		btns[12] = new JButton("*");		
+		btns[13] = new JButton("/");		
+		btns[14] = new JButton("=");		
+		btns[15] = new JButton(".");			
+
+		//adding the elements in the panel...
+
+		textP.add(t);
+		buttons.setLayout(new GridLayout(4,4,20,20));
+		for(int i=0;i<16;i++) {
+	
+			buttons.add(btns[i]);
+
+		}
+		
+		//add(textP , BorderLayout.NORTH);
+		//add(buttons , BorderLayout.CENTER);	
+		add(textP);
+		add(buttons);
+
+
+		//setting the Action Listener to the Buttons on the screen...
+
+		HandlerClass  Handler = new HandlerClass();
+
+		for(int i=0;i<16;i++) {
+
+			btns[i].addActionListener(Handler);
+
+		}
+		t.addActionListener(Handler);
+
+
+		setLayout(new FlowLayout());
+		setSize(300,300);
+		setVisible(true);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		//buttons.setLayout(new BorderLayout(4,4));
+
+	}
+
+	private class HandlerClass implements ActionListener {
+
+	// implementing the method of the floaterface...
+
+	public void actionPerformed(ActionEvent ae) {
+
+		if(ae.getSource() == btns[0]) {
+
+			num = 0;
+			op = createOperand();
+			t.setText(""+op);
+		
+			}
+		else if(ae.getSource() == btns[1]) {
+
+			num = 1;
+			op = createOperand();
+			t.setText(""+op);			
+		
+			}
+		else if(ae.getSource() == btns[2]) {
+
+			num = 2;
+			op = createOperand();
+			t.setText(""+op);
+		
+			}
+		else if(ae.getSource() == btns[3]) {
+			num = 3;
+			op = createOperand();
+			t.setText(""+op);	
+	
+			}
+		else if(ae.getSource() == btns[4]) {
+			num = 4;
+			op = createOperand();
+			t.setText(""+op);	
+	
+			}
+		else if(ae.getSource() == btns[5]) {
+			num = 5;
+			op = createOperand();
+			t.setText(""+op);
+		
+			}
+		else if(ae.getSource() == btns[6]) {
+			num = 6;
+			op = createOperand();
+			t.setText(""+op);		
+
+			}
+		else if(ae.getSource() == btns[7]) {
+			num = 7;
+			op = createOperand();
+			t.setText(""+op);
+
+			}
+		else if(ae.getSource() == btns[8]) {
+			num = 8;
+			op = createOperand();
+			t.setText(""+op);
+		
+			}
+		else if(ae.getSource() == btns[9]) {
+			num = 9;
+			opratorFlag = 1;
+			op = createOperand();
+			t.setText(""+op);
+		
+			}
+		else if(ae.getSource() == btns[10]) {
+		
+			Oprator = "+";
+			opratorFlag = 1;
+			//op = createOperand();
+			t.setText("+");	
+	
+			}
+		else if(ae.getSource() == btns[11]) {
+
+			Oprator = "-";
+			opratorFlag = 1;
+			//op = createOperand();
+			t.setText("-");
+		
+			}
+		else if(ae.getSource() == btns[12]) {
+			Oprator = "*";
+			opratorFlag = 1;
+			//op = createOperand();
+			t.setText("*");		
+			}
+		else if(ae.getSource() == btns[13]) {
+			Oprator = "/";
+			opratorFlag = 1;
+			//op = createOperand();
+			t.setText("/");		
+			}
+		else if(ae.getSource() == btns[14]) {
+
+			//Oprator = "=";
+			opratorFlag = 0;
+			//op = createOperand();
+			ans = calculate();
+			t.setText(""+ans);
+			resetFunction();	
+			}
+		else if(ae.getSource() == btns[15]) {
+
+			Oprator = ".";
+			opratorFlag = 1;
+			//op = createOperand();
+			t.setText(".");		
+			}
+		else {
+			t.setText("Enter the correct Operand.");
+	
+			}
+
+		
+		}
+		
+
+	}
+
+	public void resetFunction() {
+
+
+	OpOne = 0;
+	OpTwo = 0;
+	//Oprator;
+	opratorFlag = 0;
+	OprandFlag = 0;
+	op = 0;
+	num = 0;
+	ans = 0;
+
+	}
+
+	public float calculate() {
+
+		float answer;
+
+		if(Oprator.equals("+")) {
+	
+			answer = (float) OpOne + OpTwo;
+			return answer;
+
+		}
+		else if(Oprator.equals("-")) {
+	
+			answer = (float) OpOne - OpTwo;
+
+			return answer;
+		}
+		else if(Oprator.equals("*")) {
+	
+			answer = (float) OpOne * OpTwo;
+			return answer;
+		}
+		else if(Oprator.equals("/")) {
+	
+			answer = (float) OpOne / OpTwo;
+			return answer;
+		}
+		else {
+
+			//return 0;
+			
+		}
+	return 0;
+
+	}
+
+		
+	public float createOperand() {
+
+		if(opratorFlag == 0) {
+		
+			OpOne = (OpOne * 10) + num;
+			return OpOne;
+
+		}
+		else if(opratorFlag == 1) {
+
+			OpTwo = (OpTwo * 10) + num;
+			return OpTwo;
+		}
+		else {
+			return 0;
+		}
+
+	}
+
+}
+
+public class Calc {
+
+	public static void main(String args[]) {
+
+	new Ccalc();	
+	}
+
+}

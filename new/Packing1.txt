@@ -1,0 +1,3 @@
+Demo.txt 7                                                                                          abcdef
+Hello.txt 12                                                                                        hello world
+New.txt 20                                                                                          India is my country
